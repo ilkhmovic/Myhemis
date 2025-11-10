@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E'lonlar Boshqaruvi - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .announcements-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+        }
+        
+        .announcements-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .form-control:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #1a237e;
+            border: 1px solid #1a237e;
+        }
+        
+        .btn-outline:hover {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .announcement-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .announcement-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #1a237e;
+            transition: transform 0.2s ease;
+        }
+        
+        .announcement-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .announcement-title {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 18px;
+            margin: 0;
+        }
+        
+        .announcement-date {
+            color: #666;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .announcement-content {
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .announcement-author {
+            font-weight: 500;
+        }
+        
+        .announcement-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .priority-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .priority-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .recipient-tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1a237e;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .recipient-tag.bg-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .recipient-tag.bg-secondary {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+        
+        .recipient-tag.bg-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .create-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .create-btn:hover {
+            background-color: #218838;
+            color: white;
+        }
+        
+        .filters {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+        
+        .filter-btn {
+            background: #1a237e;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-btn:hover {
+            background: #151a61;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #1a237e;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .page-link {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #1a237e;
+            transition: all 0.3s ease;
+        }
+        
+        .page-link:hover {
+            background: #1a237e;
+            color: white;
+        }
+        
+        .page-link.active {
+            background: #1a237e;
+            color: white;
+            border-color: #1a237e;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .announcement-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .announcement-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+            }
+            
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li class="active"><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li><a href="{% url 'admin_activities' %}"><i class="fas fa-history"></i> Faoliyat tarixi</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div>
+                <h1>E'lonlar Boshqaruvi</h1>
+                <p class="header-info">{% firstof user.get_full_name user.username %}. Tizimdagi barcha foydalanuvchilar uchun e'lonlar yaratish va boshqarish.</p>
+            </div>
+            <div>
+                <a href="{% url 'admin_create_announcement' %}" class="create-btn">
+                    <i class="fas fa-plus"></i> Yangi E'lon
+                </a>
+            </div>
+        </div>
+
+        <!-- Statistik ma'lumotlar -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-number">{{ announcements.count }}</div>
+                <div class="stat-label">Jami E'lonlar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ announcements|length }}</div>
+                <div class="stat-label">Ko'rsatilayotgan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">{{ announcements|length }}</div>
+                <div class="stat-label">Faol E'lonlar</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Bugungi E'lonlar</div>
+            </div>
+        </div>
+
+        <!-- Xabarlar -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Qidiruv va filtrlash -->
+        <div class="filters">
+            <h3 style="margin-bottom: 15px; color: #333;">E'lonlarni Qidirish va Filtrlash</h3>
+            
+            <!-- Qidiruv qutisi -->
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="E'lonlarni qidirish..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <!-- Filtrlash formasi -->
+            <form method="get" class="filter-group">
+                <div class="form-group">
+                    <label for="type">E'lon Turi</label>
+                    <select id="type" name="type" class="form-select">
+                        <option value="all" {% if current_type == 'all' %}selected{% endif %}>Barcha turlar</option>
+                        {% for type_value, type_name in announcement_types %}
+                            <option value="{{ type_value }}" {% if current_type == type_value %}selected{% endif %}>
+                                {{ type_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="priority">Muhimlik</label>
+                    <select id="priority" name="priority" class="form-select">
+                        <option value="all">Barcha muhimliklar</option>
+                        <option value="high">Yuqori</option>
+                        <option value="medium">O'rta</option>
+                        <option value="low">Past</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="status">Holati</label>
+                    <select id="status" name="status" class="form-select">
+                        <option value="all" {% if current_status == 'all' %}selected{% endif %}>Barcha holatlar</option>
+                        <option value="active" {% if current_status == 'active' %}selected{% endif %}>Faol</option>
+                        <option value="inactive" {% if current_status == 'inactive' %}selected{% endif %}>Nofaol</option>
+                        <option value="expired" {% if current_status == 'expired' %}selected{% endif %}>Muddati o'tgan</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="author">Muallif</label>
+                    <select id="author" name="author" class="form-select">
+                        <option value="all">Barcha mualliflar</option>
+                        <!-- Mualliflar ro'yxati -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="filter-btn">
+                        <i class="fas fa-filter"></i> Filtrlash
+                    </button>
+                    <a href="{% url 'admin_announcements' %}" class="btn btn-outline" style="margin-left: 10px;">
+                        <i class="fas fa-redo"></i> Tozalash
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- E'lonlar ro'yxati -->
+        <div class="announcements-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Barcha E'lonlar</h3>
+                <div style="color: #666; font-size: 14px;">
+                    Jami: <strong>{{ announcements|length }}</strong> ta e'lon
+                </div>
+            </div>
+            
+            <div class="announcement-list" id="announcementList">
+                {% for announcement in announcements %}
+                <div class="announcement-card" data-title="{{ announcement.title|lower }}" data-content="{{ announcement.content|lower }}" data-author="{{ announcement.author.get_full_name|lower }}" data-type="{{ announcement.announcement_type }}" data-priority="{{ announcement.priority }}" data-status="{% if announcement.is_active %}active{% else %}inactive{% endif %}">
+                    <div class="announcement-header">
+                        <h4 class="announcement-title">
+                            {{ announcement.title }}
+                            <span class="priority-badge priority-{{ announcement.priority }}">
+                                {{ announcement.get_priority_display }}
+                            </span>
+                        </h4>
+                        <span class="announcement-date">
+                            <i class="far fa-clock"></i>
+                            {{ announcement.created_at|date:"d.m.Y H:i" }}
+                        </span>
+                    </div>
+                    
+                    <div class="announcement-content">
+                        {{ announcement.content|truncatewords:50 }}
+                    </div>
+                    
+                    <div class="announcement-meta">
+                        <div>
+                            <span class="announcement-author">
+                                <i class="fas fa-user"></i>
+                                {{ announcement.author.get_full_name }}
+                            </span>
+                            <span style="margin-left: 15px; color: #666; font-size: 14px;">
+                                <i class="fas fa-tag"></i>
+                                {{ announcement.get_announcement_type_display }}
+                            </span>
+                        </div>
+                        <div class="announcement-actions">
+                            <a href="{% url 'admin_edit_announcement' announcement.id %}" class="btn btn-outline" style="padding: 6px 12px; font-size: 14px;" title="Tahrirlash">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{% url 'admin_delete_announcement' announcement.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger" style="padding: 6px 12px; font-size: 14px;" 
+                                        onclick="return confirm('Haqiqatan ham "{{ announcement.title }}\" e\'lonini o\'chirmoqchimisiz?')" title="O'chirish">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
+                        {% if announcement.target_class %}
+                        <span class="recipient-tag">
+                            <i class="fas fa-users"></i>
+                            {{ announcement.target_class.name }}
+                        </span>
+                        {% endif %}
+                        {% if announcement.target_subject %}
+                        <span class="recipient-tag">
+                            <i class="fas fa-book"></i>
+                            {{ announcement.target_subject.name }}
+                        </span>
+                        {% endif %}
+                        {% if not announcement.target_class and not announcement.target_subject %}
+                        <span class="recipient-tag">
+                            <i class="fas fa-globe"></i>
+                            Barcha foydalanuvchilar
+                        </span>
+                        {% endif %}
+                        
+                        <span class="recipient-tag {% if announcement.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                            <i class="fas fa-{% if announcement.is_active %}check{% else %}times{% endif %}"></i>
+                            {% if announcement.is_active %}Faol{% else %}Nofaol{% endif %}
+                        </span>
+                        
+                        {% if announcement.is_expired %}
+                        <span class="recipient-tag bg-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Muddati o'tgan
+                        </span>
+                        {% endif %}
+                        
+                        {% if announcement.expiry_date %}
+                        <span class="recipient-tag">
+                            <i class="far fa-calendar"></i>
+                            {{ announcement.expiry_date|date:"d.m.Y" }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-state">
+                    <i class="fas fa-bullhorn" style="font-size: 64px; margin-bottom: 20px; color: #ddd;"></i>
+                    <h4>Hozircha e'lonlar mavjud emas</h4>
+                    <p>Birinchi e'lonni yaratish uchun "Yangi E'lon" tugmasini bosing</p>
+                    <a href="{% url 'admin_create_announcement' %}" class="create-btn" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Yangi E'lon Yaratish
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Sahifalash -->
+            {% if announcements.has_other_pages %}
+            <div class="pagination">
+                {% if announcements.has_previous %}
+                    <a href="?page=1{% if current_type %}&type={{ current_type }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}" class="page-link">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                    <a href="?page={{ announcements.previous_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}" class="page-link">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                {% endif %}
+
+                {% for num in announcements.paginator.page_range %}
+                    {% if announcements.number == num %}
+                        <span class="page-link active">{{ num }}</span>
+                    {% elif num > announcements.number|add:'-3' and num < announcements.number|add:'3' %}
+                        <a href="?page={{ num }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}" class="page-link">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if announcements.has_next %}
+                    <a href="?page={{ announcements.next_page_number }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}" class="page-link">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ announcements.paginator.num_pages }}{% if current_type %}&type={{ current_type }}{% endif %}{% if current_status %}&status={{ current_status }}{% endif %}" class="page-link">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+<script>
+    // Qidiruv funksiyasi
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        const announcementCards = document.querySelectorAll('.announcement-card');
+        let visibleCount = 0;
+        
+        announcementCards.forEach(card => {
+            const title = card.getAttribute('data-title');
+            const content = card.getAttribute('data-content');
+            const author = card.getAttribute('data-author');
+            
+            if (title.includes(searchTerm) || content.includes(searchTerm) || author.includes(searchTerm)) {
+                card.style.display = 'block';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Agar hech narsa topilmasa, xabar ko'rsatish
+        const emptyState = document.querySelector('.empty-state');
+        if (visibleCount === 0 && searchTerm !== '') {
+            if (!emptyState) {
+                const announcementList = document.getElementById('announcementList');
+                const noResults = document.createElement('div');
+                noResults.className = 'empty-state';
+                noResults.innerHTML = `
+                    <i class="fas fa-search" style="font-size: 64px; margin-bottom: 20px; color: #ddd;"></i>
+                    <h4>"${searchTerm}" bo'yicha hech narsa topilmadi</h4>
+                    <p>Boshqa kalit so'zlar bilan qidiring yoki filtrlarni o'zgartiring</p>
+                `;
+                announcementList.appendChild(noResults);
+            }
+        } else if (emptyState && searchTerm === '') {
+            emptyState.remove();
+        }
+    });
+
+    // AJAX orqali e'lon o'chirish
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForms = document.querySelectorAll('form[action*="delete-announcement"]');
+        
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const announcementCard = this.closest('.announcement-card');
+                const announcementTitle = announcementCard.querySelector('.announcement-title').textContent.trim();
+                const announcementId = this.action.split('/').filter(part => part).pop();
+                
+                if (confirm(`"${announcementTitle}" e'lonini o'chirishni istaysizmi?`)) {
+                    // AJAX so'rov
+                    fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': this.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // E'lonni DOM dan o'chirish
+                            announcementCard.style.opacity = '0';
+                            setTimeout(() => {
+                                announcementCard.remove();
+                                
+                                // Agar e'lon qolmagan bo'lsa, bo'sh holatni ko'rsatish
+                                const remainingCards = document.querySelectorAll('.announcement-card');
+                                if (remainingCards.length === 0) {
+                                    showEmptyState();
+                                }
+                                
+                                // Statistikani yangilash
+                                updateStats();
+                            }, 300);
+                            
+                            showNotification(data.message, 'success');
+                        } else {
+                            showNotification(data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Xatolik:', error);
+                        showNotification('Xatolik yuz berdi', 'error');
+                    });
+                }
+            });
+        });
+        
+        function showEmptyState() {
+            const announcementList = document.getElementById('announcementList');
+            announcementList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-bullhorn"></i>
+                    <h4>Hozircha e'lonlar mavjud emas</h4>
+                    <p>Birinchi e'lonni yaratish uchun "Yangi E'lon" tugmasini bosing</p>
+                    <a href="{% url 'admin_create_announcement' %}" class="create-btn" style="margin-top: 15px;">
+                        <i class="fas fa-plus"></i> Yangi E'lon Yaratish
+                    </a>
+                </div>
+            `;
+        }
+        
+        function updateStats() {
+            const totalCards = document.querySelectorAll('.announcement-card').length;
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (statNumbers.length >= 2) {
+                statNumbers[1].textContent = totalCards;
+            }
+        }
+    });
+    
+    // Xabar ko'rsatish funksiyasi
+    function showNotification(message, type) {
+        // Eski xabarlarni olib tashlash
+        const oldNotifications = document.querySelectorAll('.custom-notification');
+        oldNotifications.forEach(notification => notification.remove());
+        
+        const notification = document.createElement('div');
+        notification.className = 'custom-notification';
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background-color: ${type === 'success' ? '#28a745' : type === 'info' ? '#17a2b8' : '#dc3545'};
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        `;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check' : type === 'info' ? 'info' : 'exclamation'}-circle"></i>
+            ${message}
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 4000);
+    }
+
+    // E'lonlarni saralash
+    function sortAnnouncements(criteria, direction = 'desc') {
+        const container = document.getElementById('announcementList');
+        const announcements = Array.from(container.children);
+        
+        announcements.sort((a, b) => {
+            let aValue, bValue;
+            
+            switch(criteria) {
+                case 'date':
+                    aValue = new Date(a.querySelector('.announcement-date').textContent);
+                    bValue = new Date(b.querySelector('.announcement-date').textContent);
+                    break;
+                case 'title':
+                    aValue = a.querySelector('.announcement-title').textContent.toLowerCase();
+                    bValue = b.querySelector('.announcement-title').textContent.toLowerCase();
+                    break;
+                case 'priority':
+                    const priorityOrder = {high: 3, medium: 2, low: 1};
+                    aValue = priorityOrder[a.getAttribute('data-priority')] || 0;
+                    bValue = priorityOrder[b.getAttribute('data-priority')] || 0;
+                    break;
+                default:
+                    return 0;
+            }
+            
+            if (direction === 'asc') {
+                return aValue > bValue ? 1 : -1;
+            } else {
+                return aValue < bValue ? 1 : -1;
+            }
+        });
+        
+        // Yangi tartibda qayta joylashtirish
+        announcements.forEach(announcement => container.appendChild(announcement));
+    }
+
+    // Sahifalash va filtrlash uchun yuklanish indikatori
+    document.querySelector('form.filter-group').addEventListener('submit', function(e) {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Filtrlanmoqda...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 1000);
+    });
+</script>
+
+</body>
+</html>

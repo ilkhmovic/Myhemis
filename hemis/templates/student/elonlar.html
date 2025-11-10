@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E'lonlar - Student Kabineti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        .content-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .filters {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+        
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control, .form-select {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .announcement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .announcement-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid #1a237e;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .announcement-card.important {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+        
+        .announcement-card.medium {
+            border-left-color: #ffc107;
+            background: #fffdf5;
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .announcement-title {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 20px;
+            margin: 0;
+        }
+        
+        .announcement-date {
+            color: #666;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .announcement-content {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .announcement-author {
+            font-weight: 500;
+        }
+        
+        .announcement-tags {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .announcement-tag {
+            background: #e3f2fd;
+            color: #1a237e;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        .announcement-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ffc107;
+    transition: transform 0.2s ease;
+}
+
+.announcement-item.important {
+    border-left-color: #dc3545;
+    background: #fff5f5;
+}
+
+.announcement-item.medium {
+    border-left-color: #ffc107;
+    background: #fffdf5;
+}
+
+.announcement-title {
+    font-weight: 600;
+    color: #1a237e;
+    margin-bottom: 5px;
+}
+
+.announcement-date {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.announcement-content {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.announcement-target {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    font-style: italic;
+}
+        
+        .priority-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .priority-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .priority-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .empty-state h4 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            color: #666;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .filter-group {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .announcement-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .announcement-tags {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Student</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'student_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'student_grades' %}"><i class="fas fa-chart-line"></i> Baholarim</a></li>
+            <li><a href="{% url 'student_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'student_attendance' %}"><i class="fas fa-clipboard-check"></i> Davomatim</a></li>
+            <li class="active"><a href="{% url 'student_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li><a href="{% url 'student_library' %}"><i class="fas fa-book"></i> Kutubxona</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>E'lonlar</h1>
+            <p class="header-info">Maktab, sinf va fanlar bo'yicha so'nggi e'lonlar va yangiliklar.</p>
+        </div>
+
+        <!-- Qidiruv qutisi -->
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="E'lonlarni qidirish...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Filtrlash -->
+        <div class="filters">
+            <h3 style="margin-bottom: 15px; color: #333;">E'lonlarni Filtrlash</h3>
+            <div class="filter-group">
+                <div class="form-group">
+                    <label for="type-select">E'lon Turi</label>
+                    <select id="type-select" class="form-select">
+                        <option value="all">Barchasi</option>
+                        <option value="school">Maktab</option>
+                        <option value="class">Sinf</option>
+                        <option value="subject">Fan</option>
+                        <option value="event">Tadbir</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority-select">Muhimlik</label>
+                    <select id="priority-select" class="form-select">
+                        <option value="all">Barchasi</option>
+                        <option value="high">Yuqori</option>
+                        <option value="medium">O'rta</option>
+                        <option value="low">Past</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date-from">Dan</label>
+                    <input type="date" id="date-from" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="date-to">Gacha</label>
+                    <input type="date" id="date-to" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" style="padding: 10px 18px; background: #1a237e; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-filter"></i> Filtrlash
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- E'lonlar ro'yxati -->
+        <div class="content-section">
+            <h3>So'nggi E'lonlar</h3>
+            <div class="announcement-list">
+                <div class="announcements">
+                    {% for announcement in recent_announcements %}
+                    <div class="announcement-item {% if announcement.priority == 'high' %}important{% endif %}">
+                        <div class="announcement-title">{{ announcement.title }}</div>
+                        <div class="announcement-date">{{ announcement.created_at|date:"d.m.Y" }} | {{ announcement.author.get_full_name }}</div>
+                        <div class="announcement-content">
+                            {{ announcement.content|truncatewords:15 }}
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="empty-state">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>Hozircha e'lonlar mavjud emas</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Bo'sh holat -->
+        <!--
+        <div class="empty-state">
+            <i class="fas fa-bullhorn"></i>
+            <h4>Hozircha e'lonlar mavjud emas</h4>
+            <p>Yangiliklarni kuzatishda davom eting</p>
+        </div>
+        -->
+    </main>
+</div>
+
+<script>
+    // E'lon kartalarini kengaytirish
+    document.querySelectorAll('.announcement-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const content = this.querySelector('.announcement-content');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.style.overflow = 'hidden';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.overflow = 'visible';
+            }
+        });
+    });
+    
+    // Qidiruv funksiyasi
+    document.querySelector('.search-input').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const announcements = document.querySelectorAll('.announcement-card');
+        
+        announcements.forEach(announcement => {
+            const title = announcement.querySelector('.announcement-title').textContent.toLowerCase();
+            const content = announcement.querySelector('.announcement-content').textContent.toLowerCase();
+            const author = announcement.querySelector('.announcement-author').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || content.includes(searchTerm) || author.includes(searchTerm)) {
+                announcement.style.display = 'block';
+            } else {
+                announcement.style.display = 'none';
+            }
+        });
+    });
+    
+    // Filtrlash funksiyasi
+    document.querySelector('.filters .btn-primary').addEventListener('click', function() {
+        const type = document.getElementById('type-select').value;
+        const priority = document.getElementById('priority-select').value;
+        const dateFrom = document.getElementById('date-from').value;
+        const dateTo = document.getElementById('date-to').value;
+        
+        let message = 'Filtrlar qo\'llanildi: ';
+        if (type !== 'all') message += `${type}, `;
+        if (priority !== 'all') message += `${priority} muhimlik, `;
+        if (dateFrom) message += `${dateFrom} dan, `;
+        if (dateTo) message += `${dateTo} gacha, `;
+        
+        showNotification(message || 'Barcha e\'lonlar ko\'rsatilmoqda', 'info');
+    });
+    
+    // E'lonlarni saralash
+    function sortAnnouncements(criteria) {
+        const container = document.querySelector('.announcement-list');
+        const announcements = Array.from(container.children);
+        
+        announcements.sort((a, b) => {
+            if (criteria === 'date') {
+                const dateA = new Date(a.querySelector('.announcement-date').textContent);
+                const dateB = new Date(b.querySelector('.announcement-date').textContent);
+                return dateB - dateA;
+            } else if (criteria === 'priority') {
+                const priorityA = a.classList.contains('important') ? 3 : a.classList.contains('medium') ? 2 : 1;
+                const priorityB = b.classList.contains('important') ? 3 : b.classList.contains('medium') ? 2 : 1;
+                return priorityB - priorityA;
+            }
+            return 0;
+        });
+        
+        // Yangi tartibda qayta joylashtirish
+        announcements.forEach(announcement => container.appendChild(announcement));
+    }
+    
+    // Xabar ko'rsatish funksiyasi
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background-color: ${type === 'success' ? '#28a745' : type === 'info' ? '#17a2b8' : '#dc3545'};
+        `;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Dastlabki sozlashlar
+    document.addEventListener('DOMContentLoaded', function() {
+        // E'lonlarni sanasi bo'yicha saralash
+        sortAnnouncements('date');
+    });
+</script>
+
+</body>
+</html>

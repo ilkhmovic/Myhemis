@@ -1,0 +1,414 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-10-21T19:16:34.615Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "Tolibjon",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-10-21T19:16:58.150Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "matematika",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-10-21T19:17:23.447Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": " ",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-10-21T19:19:23.222Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "Tolibjon",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-10-21T19:26:28.166Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "Tolibjon",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\", \"User permissions\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-10-21T21:29:36.007Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "Shokir",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-10-21T21:32:31.721Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "Shokir",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\", \"Last login\", \"Date joined\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-10-21T21:33:52.414Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "9-A",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-10-21T21:34:07.137Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Shokir Salimov",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-10-21T21:38:56.127Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "Tolibjon",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-10-21T22:48:59.017Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "Sherzod",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-10-21T22:49:40.952Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "Sherzod",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email address\", \"Last login\", \"Date joined\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-10-21T22:50:17.943Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Doston",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Last login\", \"Date joined\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-10-21T22:51:51.436Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Sherzod Temirov",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$cXVfjUP3MH3hXzIumhwOtV$QJp8J8efp4TF1vti7O6+Om6AbojHcgf+KTqcNPS6bCk=",
+    "last_login": "2025-10-22T18:14:45.430Z",
+    "is_superuser": true,
+    "username": "Doston",
+    "first_name": "Doston",
+    "last_name": "Amonov",
+    "email": "amonovdoston03@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-10-21T22:50:16Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$AZkLth3c1NGumy5MIJ63ar$dKvCmlkYSpXv0wIpuru/nApX6ldsKgi3xgWx3DYaAKc=",
+    "last_login": "2025-10-22T00:40:30.619Z",
+    "is_superuser": false,
+    "username": "Tolibjon",
+    "first_name": "Tolibjon",
+    "last_name": "Ashurov",
+    "email": "tolibjonashurov@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-21T19:16:33Z",
+    "groups": [],
+    "user_permissions": [
+      29,
+      30,
+      31,
+      32,
+      53,
+      54,
+      55,
+      56,
+      21,
+      22,
+      23,
+      24
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ZBHd0iRUEJKIZJGxnfwf1i$v02JU/2H/wr9uxj8soY23cbTTeNs4dzXx5TuS1sdZtk=",
+    "last_login": "2025-10-21T22:33:24.261Z",
+    "is_superuser": false,
+    "username": "Shokir",
+    "first_name": "Shokir",
+    "last_name": "Salimov",
+    "email": "shokirsalimov030@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-21T21:32:29Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ZsuKCX2trUFssIIHA2rtIQ$3aGLrZomZYjbk5WFvSzGX1JZzS/4hr8p7DOPBTUBa4Y=",
+    "last_login": "2025-10-21T22:49:36Z",
+    "is_superuser": false,
+    "username": "Sherzod",
+    "first_name": "Sherzod",
+    "last_name": "Temirov",
+    "email": "sherzodtemirov02@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-21T22:49:39Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$fR2wcmttDamkl7zim9vRdV$4+Yz5SnZWyiy+P3S/ETRgV51KC3cPa4QH7HDNPu03Ms=",
+    "last_login": "2025-10-22T01:20:02.859Z",
+    "is_superuser": false,
+    "username": "Shaxnoza",
+    "first_name": "Shaxnoza",
+    "last_name": "Bormirzayeva",
+    "email": "shaxnozaboymirzayeva@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-10-22T00:36:43.203Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "9qk4z9a49j9til58ux6pwn444xt70nwp",
+  "fields": {
+    "session_data": ".eJxVjEEOgjAQRe_StWlKp51Sl-45Q1NmpoIaSCisjHcXEha6fe_9_1Ypb-uQtipLGlldlVWXX9Znesp0CH7k6T5rmqd1GXt9JPq0VXczy-t2tn8HQ67DvgYSoNIwgiP06AuSdWaHLjqw0DhhyiZ6QRFnAEuhEFvilgKEllF9vuOqN-c:1vBI6B:_CoJfXIu8JKaJQrZEYUCM3iIxm9dbj5FIPsA646ioX4",
+    "expire_date": "2025-10-21T20:32:47.859Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gea9a9neoza6njkvt7abcf2ik6j1r51n",
+  "fields": {
+    "session_data": ".eJxVjDsOwyAQBe9CHSH-2CnT-wxol4XgJALJ2FWUu0dILpL2zcx7swDHXsLR0xZWYlcm2eV3Q4jPVAegB9R747HVfVuRD4WftPOlUXrdTvfvoEAvo5410mQ0ReVAkDEoFCD4SfuYRbYKFWStlJbW-OTIWyI3ZxfRWp9Qss8X7nw4Jw:1vBOqk:TINx691k6M0Q_BvLX_ohTVeIZJgw8xSggTrh4zJI7i8",
+    "expire_date": "2025-10-22T03:45:18.448Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "i2cm1cgg5vawopsbliq9b9mrthomykwg",
+  "fields": {
+    "session_data": ".eJxVjDsOwyAQBe9CHSH-2CnT-wxol4XgJALJ2FWUu0dILpL2zcx7swDHXsLR0xZWYlcm2eV3Q4jPVAegB9R747HVfVuRD4WftPOlUXrdTvfvoEAvo5410mQ0ReVAkDEoFCD4SfuYRbYKFWStlJbW-OTIWyI3ZxfRWp9Qss8X7nw4Jw:1vBNjx:6WOQ8pFWyXGIibKZzoOf3ar4kSq469WPLtMQf8YMXXk",
+    "expire_date": "2025-10-22T02:34:13.776Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "q528zauglwnm0ucxlaebs38pllz5shs6",
+  "fields": {
+    "session_data": ".eJxVjDsOwyAQBe9CHSH-2CnT-wxol4XgJALJ2FWUu0dILpL2zcx7swDHXsLR0xZWYlcm2eV3Q4jPVAegB9R747HVfVuRD4WftPOlUXrdTvfvoEAvo5410mQ0ReVAkDEoFCD4SfuYRbYKFWStlJbW-OTIWyI3ZxfRWp9Qss8X7nw4Jw:1vBdMJ:E2c5QqTtA456W4leDdkAFTpUatKMgETxmHbLRFq9qTE",
+    "expire_date": "2025-10-22T19:14:51.336Z"
+  }
+},
+{
+  "model": "main.schoolclass",
+  "pk": 1,
+  "fields": {
+    "name": "9-A",
+    "student_count": 2
+  }
+},
+{
+  "model": "main.schoolclass",
+  "pk": 2,
+  "fields": {
+    "name": "9-B",
+    "student_count": 0
+  }
+},
+{
+  "model": "main.subject",
+  "pk": 1,
+  "fields": {
+    "name": "matematika",
+    "teacher_count": 10
+  }
+},
+{
+  "model": "main.subject",
+  "pk": 2,
+  "fields": {
+    "name": "Ona tili",
+    "teacher_count": 0
+  }
+},
+{
+  "model": "main.subject",
+  "pk": 3,
+  "fields": {
+    "name": "Fizika",
+    "teacher_count": 0
+  }
+},
+{
+  "model": "main.subject",
+  "pk": 4,
+  "fields": {
+    "name": "Adabiyot",
+    "teacher_count": 0
+  }
+},
+{
+  "model": "main.subject",
+  "pk": 5,
+  "fields": {
+    "name": "Iqtisod",
+    "teacher_count": 0
+  }
+},
+{
+  "model": "main.student",
+  "pk": 1,
+  "fields": {
+    "user": 3,
+    "school_class": 1,
+    "phone_number": "977154821"
+  }
+},
+{
+  "model": "main.student",
+  "pk": 2,
+  "fields": {
+    "user": 4,
+    "school_class": 1,
+    "phone_number": "914562325"
+  }
+},
+{
+  "model": "main.teacher",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "phone_number": "944887715",
+    "subjects": [
+      1
+    ]
+  }
+},
+{
+  "model": "main.teacher",
+  "pk": 2,
+  "fields": {
+    "user": 6,
+    "phone_number": "977154821",
+    "subjects": [
+      2
+    ]
+  }
+}

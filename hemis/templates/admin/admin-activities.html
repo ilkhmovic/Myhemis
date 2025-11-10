@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faoliyat Tarixi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        /* Filtrlar uchun styling */
+        .filters-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .filter-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+        
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control, .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        /* Jadval styling */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .activities-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .activities-table th {
+            background-color: #1a237e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .activities-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activities-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .activities-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 10px;
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .activity-user {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-name {
+            font-weight: 500;
+        }
+        
+        .user-username {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .activity-type-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .type-user { background: #e8f5e9; color: #28a745; }
+        .type-class { background: #e3f2fd; color: #007bff; }
+        .type-subject { background: #fff3cd; color: #ffc107; }
+        .type-announcement { background: #f8d7da; color: #dc3545; }
+        .type-schedule { background: #d1ecf1; color: #17a2b8; }
+        .type-report { background: #e2e3e5; color: #6c757d; }
+        .type-login { background: #d4edda; color: #155724; }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .page-button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .page-button.active {
+            background: #1a237e;
+            color: white;
+            border-color: #1a237e;
+        }
+        
+        .page-button:hover:not(.active) {
+            background: #f8f9fa;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+        
+        .activity-details {
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .filter-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .activities-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li class="active"><a href="{% url 'admin_activities' %}"><i class="fas fa-history"></i> Faoliyat tarixi</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div>
+                <h1>Faoliyat Tarixi</h1>
+                <p class="header-info">Tizimdagi barcha amallar va harakatlar</p>
+            </div>
+        </div>
+
+        <!-- Filtrlar -->
+        <div class="filters-section">
+            <form method="get" class="filter-form">
+                <div class="form-group">
+                    <label for="type">Faoliyat turi</label>
+                    <select name="type" id="type" class="form-select">
+                        <option value="all">Barcha turlar</option>
+                        {% for type_code, type_name in activity_types %}
+                            <option value="{{ type_code }}" {% if current_type == type_code %}selected{% endif %}>
+                                {{ type_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date_from">Boshlanish sanasi</label>
+                    <input type="date" name="date_from" id="date_from" class="form-control" value="{{ date_from }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="date_to">Tugash sanasi</label>
+                    <input type="date" name="date_to" id="date_to" class="form-control" value="{{ date_to }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="search">Qidirish</label>
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Foydalanuvchi yoki tavsif boʻyicha..." value="{{ search }}">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-filter"></i> Filtrlash
+                    </button>
+                    <a href="{% url 'admin_activities' %}" class="btn btn-secondary">
+                        <i class="fas fa-redo"></i> Tozalash
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Faoliyatlar jadvali -->
+        <div class="table-container">
+            <table class="activities-table">
+                <thead>
+                    <tr>
+                        <th>Foydalanuvchi</th>
+                        <th>Faoliyat turi</th>
+                        <th>Tavsif</th>
+                        <th>IP manzil</th>
+                        <th>Sana va vaqt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td>
+                            <div class="activity-user">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <div class="user-name">{{ activity.user.get_full_name|default:activity.user.username }}</div>
+                                    <div class="user-username">@{{ activity.user.username }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {# To'g'rilangan shartlar - startswith o'rniga slice va == ishlatildi #}
+                            {% if activity.activity_type == "user_login" or activity.activity_type == "user_logout" %}
+                                <span class="activity-type-badge type-login">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":5" == "user_" %}
+                                <span class="activity-type-badge type-user">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":6" == "class_" %}
+                                <span class="activity-type-badge type-class">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":7" == "subject" %}
+                                <span class="activity-type-badge type-subject">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":13" == "announcement_" %}
+                                <span class="activity-type-badge type-announcement">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":9" == "schedule_" %}
+                                <span class="activity-type-badge type-schedule">{{ activity.get_activity_type_display }}</span>
+                            {% elif activity.activity_type|slice:":7" == "report_" %}
+                                <span class="activity-type-badge type-report">{{ activity.get_activity_type_display }}</span>
+                            {% else %}
+                                <span class="activity-type-badge">{{ activity.get_activity_type_display }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="activity-details">{{ activity.description }}</td>
+                        <td>{{ activity.ip_address|default:"-" }}</td>
+                        <td>{{ activity.created_at|date:"d.m.Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <div class="empty-state">
+                                <i class="fas fa-history"></i>
+                                <h3>Faoliyat topilmadi</h3>
+                                <p>Hozircha hech qanday faoliyat mavjud emas</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Sahifalash -->
+            {% if activities.has_other_pages %}
+            <div class="pagination">
+                {% if activities.has_previous %}
+                    <a href="?page={{ activities.previous_page_number }}{% if current_type != 'all' %}&type={{ current_type }}{% endif %}{% if date_from %}&date_from={{ date_from }}{% endif %}{% if date_to %}&date_to={{ date_to }}{% endif %}{% if search %}&search={{ search }}{% endif %}" class="page-button">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                {% endif %}
+
+                {% for num in activities.paginator.page_range %}
+                    {% if activities.number == num %}
+                        <span class="page-button active">{{ num }}</span>
+                    {% elif num > activities.number|add:'-3' and num < activities.number|add:'3' %}
+                        <a href="?page={{ num }}{% if current_type != 'all' %}&type={{ current_type }}{% endif %}{% if date_from %}&date_from={{ date_from }}{% endif %}{% if date_to %}&date_to={{ date_to }}{% endif %}{% if search %}&search={{ search }}{% endif %}" class="page-button">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if activities.has_next %}
+                    <a href="?page={{ activities.next_page_number }}{% if current_type != 'all' %}&type={{ current_type }}{% endif %}{% if date_from %}&date_from={{ date_from }}{% endif %}{% if date_to %}&date_to={{ date_to }}{% endif %}{% if search %}&search={{ search }}{% endif %}" class="page-button">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

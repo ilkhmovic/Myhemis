@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'qituvchi Kabineti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #1a237e;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            font-size: 40px;
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .upcoming-classes {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .upcoming-classes h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .class-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #28a745;
+            transition: transform 0.2s ease;
+        }
+        
+        .class-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .class-time {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .class-details {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .class-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .quick-actions {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .quick-actions h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .action-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .action-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .action-card:hover {
+            background: #1a237e;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .action-card:hover .action-icon {
+            color: white;
+        }
+        
+        .action-icon {
+            font-size: 32px;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+        
+        .action-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        
+        .teacher-profile {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1a237e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+        
+        .profile-info h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .profile-subject {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .profile-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .announcements-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .announcements-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .announcements-section h3 i {
+            color: #1a237e;
+        }
+
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .announcement-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #1a237e;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .announcement-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .announcement-item.important {
+            border-left-color: #dc3545;
+            background: linear-gradient(135deg, #fff5f5, #f8f9fa);
+        }
+
+        .announcement-item.important::before {
+            content: '⚠️';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 16px;
+        }
+
+        .announcement-item.medium {
+            border-left-color: #ffc107;
+            background: linear-gradient(135deg, #fffdf5, #f8f9fa);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .announcement-title {
+            font-weight: 600;
+            color: #1a237e;
+            font-size: 18px;
+            margin: 0;
+            flex: 1;
+        }
+
+        .announcement-date {
+            color: #666;
+            font-size: 14px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .announcement-content {
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .announcement-author {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .announcement-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .announcement-tag {
+            background: #e3f2fd;
+            color: #1a237e;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .announcement-tag.priority-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .announcement-tag.priority-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .announcement-tag.priority-low {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .empty-announcements {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-announcements i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .empty-announcements h4 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .empty-announcements p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .view-all-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #1a237e;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .view-all-link:hover {
+            color: #151a61;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .teacher-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .profile-meta {
+                justify-content: center;
+            }
+            
+            .class-actions {
+                flex-direction: column;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .announcement-meta {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .announcement-tags {
+                width: 100%;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | O'qituvchi</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><a href="{% url 'teacher_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'teacher_grades' %}"><i class="fas fa-chart-line"></i> Baholash</a></li>
+            <li><a href="{% url 'teacher_attendance' %}"><i class="fas fa-clipboard-check"></i> Davomat</a></li>
+            <li><a href="{% url 'teacher_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'teacher_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>O'qituvchi Kabineti</h1>
+            <p class="header-info">Xush kelibsiz, {% firstof teacher.user.get_full_name teacher.user.username %}! Bugungi darslaringiz va vazifalaringiz.</p>
+        </div>
+
+        <!-- O'qituvchi profili -->
+        <div class="teacher-profile">
+            <div class="profile-avatar">
+                {{ teacher.user.first_name|first }}{{ teacher.user.last_name|first }}
+            </div>
+            <div class="profile-info">
+                <h3>{{ teacher.user.get_full_name }}</h3>
+                <div class="profile-subject">
+                    {% for subject in teacher.subjects.all %}
+                        {{ subject.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Fanlar belgilanmagan
+                    {% endfor %}
+                </div>
+                <div class="profile-meta">
+                    <span><i class="fas fa-phone"></i> {{ teacher.phone_number|default:"Telefon raqami kiritilmagan" }}</span>
+                    <span><i class="fas fa-envelope"></i> {{ teacher.user.email|default:"Email kiritilmagan" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- E'lonlar bo'limi -->
+        <div class="announcements-section">
+            <h3>
+                <i class="fas fa-bullhorn"></i>
+                So'nggi E'lonlar
+            </h3>
+            
+            <div class="announcements-list">
+                {% for announcement in recent_announcements %}
+                <div class="announcement-item {% if announcement.priority == 'high' %}important{% elif announcement.priority == 'medium' %}medium{% endif %}" 
+                     onclick="openAnnouncementModal({{ announcement.id }})">
+                    
+                    <div class="announcement-header">
+                        <h4 class="announcement-title">{{ announcement.title }}</h4>
+                        <span class="announcement-date">
+                            <i class="far fa-clock"></i>
+                            {{ announcement.created_at|date:"d.m.Y H:i" }}
+                        </span>
+                    </div>
+                    
+                    <div class="announcement-content">
+                        {{ announcement.content|truncatewords:20 }}
+                    </div>
+                    
+                    <div class="announcement-meta">
+                        <span class="announcement-author">
+                            <i class="fas fa-user"></i>
+                            {{ announcement.author.get_full_name }}
+                        </span>
+                        <div class="announcement-tags">
+                            <span class="announcement-tag priority-{{ announcement.priority }}">
+                                <i class="fas fa-{% if announcement.priority == 'high' %}exclamation-triangle{% elif announcement.priority == 'medium' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+                                {{ announcement.get_priority_display }}
+                            </span>
+                            {% if announcement.target_class %}
+                            <span class="announcement-tag">
+                                <i class="fas fa-users"></i>
+                                {{ announcement.target_class.name }}
+                            </span>
+                            {% endif %}
+                            {% if announcement.target_subject %}
+                            <span class="announcement-tag">
+                                <i class="fas fa-book"></i>
+                                {{ announcement.target_subject.name }}
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-announcements">
+                    <i class="fas fa-bullhorn"></i>
+                    <h4>Hozircha e'lonlar mavjud emas</h4>
+                    <p>Yangiliklarni kuzatishda davom eting</p>
+                </div>
+                {% endfor %}
+            </div>
+            
+            {% if recent_announcements %}
+            <a href="{% url 'teacher_announcements' %}" class="view-all-link">
+                <i class="fas fa-arrow-right"></i>
+                Barcha e'lonlarni ko'rish
+            </a>
+            {% endif %}
+        </div>
+
+        <!-- Statistik ma'lumotlar -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-value">
+                    {% if students_count %}
+                        {{ students_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </div>
+                <div class="stat-label">Jami O'quvchilar</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="stat-value">
+                    {% if classes_count %}
+                        {{ classes_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </div>
+                <div class="stat-label">Sinflar Soni</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-value">{{ teacher.subjects.count }}</div>
+                <div class="stat-label">O'tiladigan Fanlar</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-value">
+                    {% if weekly_lessons_count %}
+                        {{ weekly_lessons_count }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </div>
+                <div class="stat-label">Haftalik Darslar</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Keyingi darslar -->
+            <div class="upcoming-classes">
+                <h3>Bugungi Darslar</h3>
+                
+                {% if today_schedule %}
+                    {% for schedule in today_schedule %}
+                    <div class="class-card">
+                        <div class="class-time">{{ schedule.period }}-dars</div>
+                        <div class="class-details">
+                            <strong>{{ schedule.school_class.name }}</strong> - {{ schedule.subject.name }}<br>
+                            Xona: {{ schedule.room }}
+                        </div>
+                        <div class="class-actions">
+                            <a href="{% url 'teacher_attendance' %}?class_id={{ schedule.school_class.id }}&subject_id={{ schedule.subject.id }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-clipboard-check"></i> Davomat
+                            </a>
+                            <a href="{% url 'teacher_grades' %}?class_id={{ schedule.school_class.id }}&subject_id={{ schedule.subject.id }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-edit"></i> Baholash
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="class-card">
+                        <div class="class-details">
+                            <strong>Bugun dars yo'q</strong><br>
+                            Dam olish kuni yoki darslar mavjud emas
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Tezkor Amallar -->
+            <div class="quick-actions">
+                <h3>Tezkor Amallar</h3>
+                <div class="action-grid">
+                    <a href="{% url 'teacher_grades' %}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="action-title">Baholash</div>
+                    </a>
+                    
+                    <a href="{% url 'teacher_attendance' %}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="action-title">Davomat</div>
+                    </a>
+                    
+                    <a href="{% url 'teacher_schedule' %}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="action-title">Dars Jadvali</div>
+                    </a>
+                    
+                    <a href="{% url 'teacher_announcements' %}" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="action-title">E'lonlar</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Dars kartalari uchun hover effekti
+    document.querySelectorAll('.class-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+
+    // Statistik kartalari uchun hover effekti
+    document.querySelectorAll('.stat-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Vaqtni yangilash
+    function updateTime() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('uz-UZ', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        const dateString = now.toLocaleDateString('uz-UZ', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Sarlavha orqasiga vaqtni qo'shish
+        const headerInfo = document.querySelector('.header-info');
+        if (headerInfo) {
+            headerInfo.innerHTML = `Xush kelibsiz, {% firstof teacher.user.get_full_name teacher.user.username %}! Bugungi darslaringiz va vazifalaringiz. <br><small>${dateString} | ${timeString}</small>`;
+        }
+    }
+    
+    // Har soniya vaqtni yangilash
+    setInterval(updateTime, 1000);
+    updateTime(); // Dastlabki chaqirish
+
+    // E'lon modalini ochish funksiyasi
+    function openAnnouncementModal(announcementId) {
+        // Bu funksiya e'lon modalini ochadi
+        // Siz bu funksiyani o'zingizning modal logikangizga moslashtirishingiz kerak
+        console.log('E\'lon ochildi:', announcementId);
+        // Masalan: window.location.href = `/teacher/announcements/${announcementId}/`;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchini O'chirish</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Sizning mavjud CSS stylingiz */
+        /* Qisqalik uchun faqat asosiy qismlarni ko'rsatdim */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Sidebar... -->
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Foydalanuvchini O'chirish</h1>
+        </div>
+
+        <div class="form-container">
+            <div class="form-card">
+                <div style="text-align: center; padding: 40px 20px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 64px; color: #dc3545; margin-bottom: 20px;"></i>
+                    <h2 style="color: #dc3545; margin-bottom: 20px;">Ogohlantirish!</h2>
+                    <p style="font-size: 18px; margin-bottom: 10px;">
+                        <strong>{{ user.get_full_name }}</strong> foydalanuvchisini o'chirishni tasdiqlaysizmi?
+                    </p>
+                    <p style="color: #666; margin-bottom: 30px;">
+                        Bu amalni qaytarib bo'lmaydi. Foydalanuvchi ma'lumotlari butunlay o'chiriladi.
+                    </p>
+                    
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" style="background-color: #dc3545;">
+                            <i class="fas fa-trash"></i> Ha, O'chirish
+                        </button>
+                    </form>
+                    <a href="{% url 'admin_users' %}" class="btn btn-secondary" style="margin-left: 10px;">
+                        <i class="fas fa-times"></i> Bekor qilish
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

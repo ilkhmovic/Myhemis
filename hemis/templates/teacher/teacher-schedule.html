@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dars Jadvali - O'qituvchi Kabineti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        .content-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .schedule-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .week-info {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a237e;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #1a237e;
+            border: 1px solid #1a237e;
+        }
+        
+        .btn-outline:hover {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .schedule-table th {
+            background: #1a237e;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .schedule-table th:first-child {
+            background: #151a61;
+        }
+        
+        .time-slot {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .lesson-card {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #28a745;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .lesson-card.current {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+        
+        .lesson-subject {
+            font-weight: 600;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+        
+        .lesson-class {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .lesson-room {
+            font-size: 11px;
+            color: #888;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid #1a237e;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .empty-slot {
+            color: #999;
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .today-lessons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .current-lesson-badge {
+            background: #dc3545;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .schedule-table {
+                font-size: 12px;
+            }
+            
+            .lesson-card {
+                padding: 8px;
+            }
+            
+            .schedule-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn {
+                flex: 1;
+            }
+            
+            .today-lessons {
+                grid-template-columns: 1fr;
+            }
+        }
+        .current-week-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | O'qituvchi</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'teacher_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'teacher_grades' %}"><i class="fas fa-chart-line"></i> Baholash</a></li>
+            <li><a href="{% url 'teacher_attendance' %}"><i class="fas fa-clipboard-check"></i> Davomat</a></li>
+            <li class="active"><a href="{% url 'teacher_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'teacher_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>Dars Jadvali</h1>
+            <p class="header-info">Haftalik dars jadvalingiz va dars soatlari.</p>
+        </div>
+
+        <!-- Jadval navigatsiyasi -->
+        <div class="schedule-navigation">
+            <div class="week-info">
+                {{ current_week_dates }} ({{ current_week_number }}-hafta)
+                {% if current_week_offset == 0 %}
+                <span class="current-week-badge">Joriy hafta</span>
+                {% endif %}
+            </div>
+            <div class="nav-buttons">
+                <a href="?week={{ current_week_offset|add:'-1' }}" class="btn btn-outline">
+                    <i class="fas fa-chevron-left"></i> Oldingi
+                </a>
+                <a href="?week=0" class="btn btn-outline">
+                    Bugun
+                </a>
+                <a href="?week={{ current_week_offset|add:'1' }}" class="btn btn-outline">
+                    Keyingi <i class="fas fa-chevron-right"></i>
+                </a>
+                <button class="btn btn-primary" onclick="printSchedule()">
+                    <i class="fas fa-print"></i> Chop etish
+                </button>
+            </div>
+        </div>
+
+        <!-- Dars jadvali -->
+        <div class="content-section">
+            <h3>Haftalik Dars Jadvali</h3>
+            <div class="table-container">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th width="100">Vaqt</th>
+                            <th>Dushanba</th>
+                            <th>Seshanba</th>
+                            <th>Chorshanba</th>
+                            <th>Payshanba</th>
+                            <th>Juma</th>
+                            <th>Shanba</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for period in periods %}
+                        <tr>
+                            <td class="time-slot">{{ period.time_slot }}</td>
+                            
+                            <!-- Dushanba -->
+                            <td>
+                                {% for lesson in schedule_data.monday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                            
+                            <!-- Seshanba -->
+                            <td>
+                                {% for lesson in schedule_data.tuesday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                            
+                            <!-- Chorshanba -->
+                            <td>
+                                {% for lesson in schedule_data.wednesday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                            
+                            <!-- Payshanba -->
+                            <td>
+                                {% for lesson in schedule_data.thursday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                            
+                            <!-- Juma -->
+                            <td>
+                                {% for lesson in schedule_data.friday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                            
+                            <!-- Shanba -->
+                            <td>
+                                {% for lesson in schedule_data.saturday %}
+                                    {% if lesson.period == period.number %}
+                                    <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                                         onclick="showLessonDetails({{ lesson.id }})">
+                                        <div class="lesson-subject">{{ lesson.subject.name }}</div>
+                                        <div class="lesson-class">{{ lesson.school_class.name }}</div>
+                                        <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                                        {% if lesson.notes %}
+                                        <div class="lesson-notes" style="font-size: 10px; color: #666; margin-top: 3px;">
+                                            {{ lesson.notes|truncatewords:3 }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                {% empty %}
+                                    <div class="empty-slot">Bo'sh</div>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Statistika -->
+        <div class="content-section">
+            <h3>Dars Jadvali Statistikasi</h3>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value">{{ weekly_lessons_count }}</div>
+                    <div class="stat-label">Haftalik Darslar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ classes_count }}</div>
+                    <div class="stat-label">O'tiladigan Sinflar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ subjects_count }}</div>
+                    <div class="stat-label">O'tiladigan Fanlar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ weekly_hours }} soat</div>
+                    <div class="stat-label">Haftalik Ishlash Vaqti</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ empty_slots_count }}</div>
+                    <div class="stat-label">Bo'sh Soatlar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ busiest_day_count }}</div>
+                    <div class="stat-label">Eng Ko'p Dars Kunlari</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bugungi darslar -->
+        <div class="content-section">
+            <h3>Bugungi Darslar</h3>
+            <div class="today-lessons">
+                {% for lesson in today_lessons %}
+                <div class="lesson-card {% if lesson.is_current %}current{% endif %}" 
+                     onclick="showLessonDetails({{ lesson.id }})">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <div class="lesson-subject">{{ lesson.subject.name }} - {{ lesson.school_class.name }}</div>
+                            <div class="lesson-class">{{ lesson.period }}-dars • {{ lesson.time_slot }}</div>
+                            <div class="lesson-room">Xona: {{ lesson.room }}</div>
+                        </div>
+                        {% if lesson.is_current %}
+                        <div class="current-lesson-badge">
+                            Joriy
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="empty-slot" style="grid-column: 1 / -1; text-align: center;">
+                    Bugun darslar mavjud emas
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Dars kartalariga hover effekti
+    document.querySelectorAll('.lesson-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('current')) {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('current')) {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+            }
+        });
+    });
+    
+    // Dars tafsilotlarini ko'rsatish
+    function showLessonDetails(lessonId) {
+        // Demo ma'lumotlar - haqiqiy loyihada API so'rovi bo'ladi
+        const demoData = {
+            subject: "Matematika",
+            class: "9-A Sinfi",
+            day: "Dushanba",
+            time_slot: "08:00-08:45",
+            room: "201",
+            notes: "Algebra va geometriya"
+        };
+        
+        showLessonModal(demoData);
+    }
+    
+    // Dars modalini ko'rsatish
+    function showLessonModal(lessonData) {
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        `;
+        
+        modal.innerHTML = `
+            <div style="background: white; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%;">
+                <h3 style="margin-bottom: 20px; color: #1a237e;">Dars Ma'lumotlari</h3>
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Fan:</strong> ${lessonData.subject}</p>
+                    <p><strong>Sinf:</strong> ${lessonData.class}</p>
+                    <p><strong>Kun:</strong> ${lessonData.day}</p>
+                    <p><strong>Vaqt:</strong> ${lessonData.time_slot}</p>
+                    <p><strong>Xona:</strong> ${lessonData.room}</p>
+                    ${lessonData.notes ? `<p><strong>Izoh:</strong> ${lessonData.notes}</p>` : ''}
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button class="btn btn-outline" onclick="this.closest('.modal').remove()">
+                        Yopish
+                    </button>
+                    <a href="{% url 'teacher_attendance' %}" class="btn btn-primary">
+                        <i class="fas fa-clipboard-check"></i> Davomat
+                    </a>
+                    <a href="{% url 'teacher_grades' %}" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> Baholash
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        modal.classList.add('modal');
+        document.body.appendChild(modal);
+        
+        // Modalni yopish
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                document.body.removeChild(this);
+            }
+        });
+    }
+    
+    // Jadvalni chop etish
+    function printSchedule() {
+        showNotification('Jadval chop etish rejimiga o\'tkazilmoqda...', 'info');
+        setTimeout(() => {
+            window.print();
+        }, 500);
+    }
+    
+    // Xabar ko'rsatish funksiyasi
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background-color: ${type === 'success' ? '#28a745' : type === 'info' ? '#17a2b8' : '#dc3545'};
+        `;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>

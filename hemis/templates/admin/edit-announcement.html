@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E'lonni Tahrirlash - Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .form-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+        
+        .announcement-info {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #1a237e;
+        }
+        
+        .announcement-info h4 {
+            margin: 0 0 10px 0;
+            color: #1a237e;
+        }
+        
+        .announcement-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .form-control, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .form-control:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-check-input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .form-check-label {
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+        
+        .form-text {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #1a237e;
+            border: 1px solid #1a237e;
+        }
+        
+        .btn-outline:hover {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .field-errors {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .announcement-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li class="active"><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li><a href="{% url 'admin_activities' %}"><i class="fas fa-history"></i> Faoliyat tarixi</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <h1>E'lonni Tahrirlash</h1>
+            <p class="header-info">"{{ announcement.title }}" e'lonini tahrirlash</p>
+        </div>
+
+        <!-- E'lon ma'lumotlari -->
+        <div class="announcement-info">
+            <h4>E'lon haqida ma'lumot</h4>
+            <div class="announcement-meta">
+                <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span>Muallif: {{ announcement.author.get_full_name }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Yaratilgan: {{ announcement.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-edit"></i>
+                    <span>Holati: {% if announcement.is_active %}Faol{% else %}Nofaol{% endif %}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Xabarlar -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- E'lon tahrirlash formasi -->
+        <div class="form-section">
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- Sarlavha -->
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">E'lon Sarlavhasi *</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="field-errors">
+                            {% for error in form.title.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Matn -->
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}">E'lon Matni *</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="field-errors">
+                            {% for error in form.content.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- E'lon turi -->
+                <div class="form-group">
+                    <label for="{{ form.announcement_type.id_for_label }}">E'lon Turi</label>
+                    {{ form.announcement_type }}
+                </div>
+                
+                <!-- Muhimlik darajasi -->
+                <div class="form-group">
+                    <label for="{{ form.priority.id_for_label }}">Muhimlik Darajasi</label>
+                    {{ form.priority }}
+                </div>
+                
+                <!-- Maqsadli sinf -->
+                <div class="form-group">
+                    <label for="{{ form.target_class.id_for_label }}">Maqsadli Sinf</label>
+                    {{ form.target_class }}
+                    <small class="form-text">Agar biron sinf tanlansa, faqat o'sha sinf o'quvchilari ko'radi</small>
+                </div>
+                
+                <!-- Maqsadli fan -->
+                <div class="form-group">
+                    <label for="{{ form.target_subject.id_for_label }}">Maqsadli Fan</label>
+                    {{ form.target_subject }}
+                    <small class="form-text">Agar biron fan tanlansa, faqat o'sha fandan dars olganlar ko'radi</small>
+                </div>
+                
+                <!-- Muddati -->
+                <div class="form-group">
+                    <label for="{{ form.expiry_date.id_for_label }}">Muddati</label>
+                    {{ form.expiry_date }}
+                    <small class="form-text">Agar muddat belgilansa, shu muddatgacha ko'rinadi</small>
+                </div>
+                
+                <!-- Faol holati -->
+                <div class="form-group">
+                    <div class="form-check">
+                        {{ form.is_active }}
+                        <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                            E'lon faol
+                        </label>
+                    </div>
+                    <small class="form-text">Agar belgilansa, e'lon barchaga ko'rinadi</small>
+                </div>
+                
+                <!-- Amallar -->
+                <div class="form-actions">
+                    <a href="{% url 'admin_announcements' %}" class="btn btn-outline">
+                        <i class="fas fa-times"></i> Bekor Qilish
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> O'zgarishlarni Saqlash
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Formani validatsiyasi
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const titleInput = document.getElementById('{{ form.title.id_for_label }}');
+        const contentInput = document.getElementById('{{ form.content.id_for_label }}');
+        
+        form.addEventListener('submit', function(e) {
+            let isValid = true;
+            
+            // Sarlavha tekshiruvi
+            if (!titleInput.value.trim()) {
+                showFieldError(titleInput, 'Sarlavha kiritish majburiy');
+                isValid = false;
+            } else {
+                clearFieldError(titleInput);
+            }
+            
+            // Matn tekshiruvi
+            if (!contentInput.value.trim()) {
+                showFieldError(contentInput, 'E\'lon matni kiritish majburiy');
+                isValid = false;
+            } else {
+                clearFieldError(contentInput);
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                showNotification('Iltimos, barcha majburiy maydonlarni to\'ldiring!', 'error');
+            }
+        });
+        
+        function showFieldError(field, message) {
+            clearFieldError(field);
+            field.style.borderColor = '#dc3545';
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'field-errors';
+            errorDiv.textContent = message;
+            field.parentNode.appendChild(errorDiv);
+        }
+        
+        function clearFieldError(field) {
+            field.style.borderColor = '#ddd';
+            const existingError = field.parentNode.querySelector('.field-errors');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+        
+        // Real vaqtda validatsiya
+        titleInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                clearFieldError(this);
+            }
+        });
+        
+        contentInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                clearFieldError(this);
+            }
+        });
+    });
+    
+    // Xabar ko'rsatish funksiyasi
+    function showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background-color: ${type === 'success' ? '#28a745' : type === 'info' ? '#17a2b8' : '#dc3545'};
+        `;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 4000);
+    }
+</script>
+
+</body>
+</html>

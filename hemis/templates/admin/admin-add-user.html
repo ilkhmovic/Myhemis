@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yangi Foydalanuvchi Qo'shish</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .form-check-input {
+            margin-right: 10px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .user-type-selector {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .user-type-option {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-type-option:hover {
+            border-color: #1a237e;
+        }
+        
+        .user-type-option.selected {
+            border-color: #1a237e;
+            background-color: #f8f9ff;
+        }
+        
+        .user-type-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .user-type-option.selected .user-type-icon {
+            color: #1a237e;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .form-text {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .user-type-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li class="active"><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div>
+                <h1>Yangi Foydalanuvchi Qo'shish</h1>
+                <p class="header-info">Yangi o'qituvchi yoki o'quvchi qo'shish</p>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="form-container">
+            <form method="post" class="form-card">
+                {% csrf_token %}
+                
+                <!-- Foydalanuvchi turini tanlash -->
+                <div class="form-section">
+                    <h3>Foydalanuvchi Turi</h3>
+                    <div class="user-type-selector">
+                        <div class="user-type-option" onclick="selectUserType('student')">
+                            <div class="user-type-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h4>O'quvchi</h4>
+                            <p>Yangi o'quvchi qo'shish</p>
+                        </div>
+                        <div class="user-type-option" onclick="selectUserType('teacher')">
+                            <div class="user-type-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h4>O'qituvchi</h4>
+                            <p>Yangi o'qituvchi qo'shish</p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="user_type" id="user_type" required>
+                </div>
+
+                <!-- Asosiy ma'lumotlar -->
+                <div class="form-section">
+                    <h3>Asosiy Ma'lumotlar</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_username">Foydalanuvchi nomi *</label>
+                            <input type="text" name="username" class="form-control" id="id_username" required>
+                            <div class="form-text">Foydalanuvchi tizimga kirish uchun ishlatadigan nom</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Elektron pochta</label>
+                            <input type="email" name="email" class="form-control" id="id_email">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_first_name">Ism *</label>
+                            <input type="text" name="first_name" class="form-control" id="id_first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Familiya *</label>
+                            <input type="text" name="last_name" class="form-control" id="id_last_name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_password">Parol *</label>
+                            <input type="password" name="password" class="form-control" id="id_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_confirm_password">Parolni tasdiqlash *</label>
+                            <input type="password" name="confirm_password" class="form-control" id="id_confirm_password" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- O'quvchi ma'lumotlari (faqat o'quvchi tanlanganida) -->
+                <div class="form-section" id="student-fields" style="display: none;">
+                    <h3>O'quvchi Ma'lumotlari</h3>
+                    <div class="form-group">
+                        <label for="id_school_class">Sinf *</label>
+                        <select name="school_class" class="form-select" id="id_school_class">
+                            <option value="">Sinfni tanlang</option>
+                            {% for class in classes %}
+                                <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_phone_number">Telefon raqami</label>
+                        <input type="text" name="phone_number" class="form-control" id="id_phone_number">
+                    </div>
+                </div>
+
+                <!-- O'qituvchi ma'lumotlari (faqat o'qituvchi tanlanganida) -->
+                <div class="form-section" id="teacher-fields" style="display: none;">
+                    <h3>O'qituvchi Ma'lumotlari</h3>
+                    <div class="form-group">
+                        <label for="id_subjects">Fanlar *</label>
+                        <select name="subjects" class="form-select" id="id_subjects" multiple>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">Bir nechta fanlarni tanlash uchun Ctrl tugmasini bosib tanlang</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_phone_number_teacher">Telefon raqami</label>
+                        <input type="text" name="phone_number" class="form-control" id="id_phone_number_teacher">
+                    </div>
+                </div>
+
+                <!-- Qo'shimcha sozlamalar -->
+                <div class="form-section">
+                    <h3>Qo'shimcha Sozlamalar</h3>
+                    <div class="form-check">
+                        <input type="checkbox" name="is_active" class="form-check-input" id="id_is_active" checked>
+                        <label class="form-check-label" for="id_is_active">
+                            Foydalanuvchi faol
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{% url 'admin_users' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Ortga
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Saqlash
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    function selectUserType(type) {
+        // Barcha variantlardan selected klassini olib tashlash
+        document.querySelectorAll('.user-type-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        
+        // Tanlangan variantga selected klassini qo'shish
+        event.currentTarget.classList.add('selected');
+        
+        // Input qiymatini o'zgartirish
+        document.getElementById('user_type').value = type;
+        
+        // Tegishli maydonlarni ko'rsatish/yashirish
+        if (type === 'student') {
+            document.getElementById('student-fields').style.display = 'block';
+            document.getElementById('teacher-fields').style.display = 'none';
+            // O'qituvchi maydonlarini majburiy emas qilish
+            document.getElementById('id_subjects').required = false;
+            // O'quvchi maydonlarini majburiy qilish
+            document.getElementById('id_school_class').required = true;
+        } else if (type === 'teacher') {
+            document.getElementById('student-fields').style.display = 'none';
+            document.getElementById('teacher-fields').style.display = 'block';
+            // O'quvchi maydonlarini majburiy emas qilish
+            document.getElementById('id_school_class').required = false;
+            // O'qituvchi maydonlarini majburiy qilish
+            document.getElementById('id_subjects').required = true;
+        }
+    }
+    
+    // Formani yuborishdan oldin tekshirish
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const userType = document.getElementById('user_type').value;
+        if (!userType) {
+            e.preventDefault();
+            alert('Iltimos, foydalanuvchi turini tanlang!');
+            return false;
+        }
+        
+        const password = document.getElementById('id_password').value;
+        const confirmPassword = document.getElementById('id_confirm_password').value;
+        
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Parollar mos kelmadi!');
+            return false;
+        }
+    });
+</script>
+
+</body>
+</html>

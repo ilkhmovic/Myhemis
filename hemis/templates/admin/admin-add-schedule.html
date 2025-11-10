@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yangi Dars Qo'shish</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .form-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-control, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background-color: #1a237e;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #151a61;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-text {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .current-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .info-item {
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .errorlist {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .errorlist li {
+            background: #f8d7da;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li class="active"><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li><a href="{% url 'admin_activities' %}"><i class="fas fa-history"></i> Faoliyat tarixi</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div>
+                <h1>Yangi Dars Qo'shish</h1>
+                <p class="header-info">
+                    {% if current_class %}
+                        {{ current_class.name }} sinfiga yangi dars qo'shish
+                    {% else %}
+                        Dars jadvaliga yangi dars qo'shish
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                {% if current_class %}
+                    <a href="{% url 'admin_schedule_class' current_class.id %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Ortga qaytish
+                    </a>
+                {% else %}
+                    <a href="{% url 'admin_schedule' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Ortga qaytish
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="form-container">
+            <form method="post" class="form-card">
+                {% csrf_token %}
+                
+                <div class="form-section">
+                    <h3>Dars Ma'lumotlari</h3>
+                    
+                    <!-- Sinf (faqat agar class_id yo'q bo'lsa ko'rsatiladi) -->
+                    {% if not current_class %}
+                    <div class="form-group">
+                        <label for="id_school_class">Sinf *</label>
+                        <select name="school_class" id="id_school_class" class="form-select" required>
+                            <option value="">-- Sinfni tanlang --</option>
+                            {% for class in classes %}
+                                <option value="{{ class.id }}" {% if form.school_class.value == class.id %}selected{% endif %}>
+                                    {{ class.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.school_class.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.school_class.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <!-- Agar class_id bo'lsa, hidden input orqali yuboramiz -->
+                    <input type="hidden" name="school_class" value="{{ current_class.id }}">
+                    <div class="current-info">
+                        <h4>Tanlangan Sinf</h4>
+                        <div class="info-item">
+                            <span class="info-label">Sinf:</span> {{ current_class.name }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Fan -->
+                    <div class="form-group">
+                        <label for="id_subject">Fan *</label>
+                        <select name="subject" id="id_subject" class="form-select" required>
+                            <option value="">-- Fanni tanlang --</option>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}" {% if form.subject.value == subject.id %}selected{% endif %}>
+                                    {{ subject.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.subject.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.subject.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <!-- O'qituvchi -->
+                    <div class="form-group">
+                        <label for="id_teacher">O'qituvchi *</label>
+                        <select name="teacher" id="id_teacher" class="form-select" required>
+                            <option value="">-- O'qituvchini tanlang --</option>
+                            {% for teacher in teachers %}
+                                <option value="{{ teacher.id }}" {% if form.teacher.value == teacher.id %}selected{% endif %}>
+                                    {{ teacher.user.get_full_name }} - 
+                                    {% for subject in teacher.subjects.all %}
+                                        {{ subject.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.teacher.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.teacher.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <!-- Hafta kuni -->
+                    <div class="form-group">
+                        <label for="id_day">Hafta kuni *</label>
+                        <select name="day" id="id_day" class="form-select" required>
+                            <option value="">-- Hafta kunini tanlang --</option>
+                            <option value="monday" {% if form.day.value == "monday" %}selected{% endif %}>Dushanba</option>
+                            <option value="tuesday" {% if form.day.value == "tuesday" %}selected{% endif %}>Seshanba</option>
+                            <option value="wednesday" {% if form.day.value == "wednesday" %}selected{% endif %}>Chorshanba</option>
+                            <option value="thursday" {% if form.day.value == "thursday" %}selected{% endif %}>Payshanba</option>
+                            <option value="friday" {% if form.day.value == "friday" %}selected{% endif %}>Juma</option>
+                            <option value="saturday" {% if form.day.value == "saturday" %}selected{% endif %}>Shanba</option>
+                        </select>
+                        {% if form.day.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.day.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <!-- Dars raqami -->
+                    <div class="form-group">
+                        <label for="id_period">Dars raqami *</label>
+                        <select name="period" id="id_period" class="form-select" required>
+                            <option value="">-- Dars raqamini tanlang --</option>
+                            <option value="1" {% if form.period.value == "1" %}selected{% endif %}>1-dars</option>
+                            <option value="2" {% if form.period.value == "2" %}selected{% endif %}>2-dars</option>
+                            <option value="3" {% if form.period.value == "3" %}selected{% endif %}>3-dars</option>
+                            <option value="4" {% if form.period.value == "4" %}selected{% endif %}>4-dars</option>
+                            <option value="5" {% if form.period.value == "5" %}selected{% endif %}>5-dars</option>
+                            <option value="6" {% if form.period.value == "6" %}selected{% endif %}>6-dars</option>
+                            <option value="7" {% if form.period.value == "7" %}selected{% endif %}>7-dars</option>
+                            <option value="8" {% if form.period.value == "8" %}selected{% endif %}>8-dars</option>
+                        </select>
+                        <div class="form-text">1 dan 8 gacha bo'lgan dars raqamini kiriting</div>
+                        {% if form.period.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.period.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <!-- Xona raqami -->
+                    <div class="form-group">
+                        <label for="id_room">Xona raqami *</label>
+                        <input type="text" name="room" id="id_room" class="form-control" 
+                               value="{{ form.room.value|default:'' }}" 
+                               placeholder="Masalan: 101" required>
+                        {% if form.room.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.room.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                    <!-- Qo'shimcha ma'lumotlar -->
+                    <div class="form-group">
+                        <label for="id_notes">Qo'shimcha ma'lumotlar</label>
+                        <textarea name="notes" id="id_notes" class="form-control" 
+                                  rows="3" placeholder="Qo'shimcha izohlar...">{{ form.notes.value|default:'' }}</textarea>
+                        {% if form.notes.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.notes.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    {% if current_class %}
+                        <a href="{% url 'admin_schedule_class' current_class.id %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Ortga qaytish
+                        </a>
+                    {% else %}
+                        <a href="{% url 'admin_schedule' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Ortga qaytish
+                        </a>
+                    {% endif %}
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Qo'shish
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Form yuborilganda tekshirish
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const schoolClass = document.getElementById('id_school_class');
+        const subject = document.getElementById('id_subject');
+        const teacher = document.getElementById('id_teacher');
+        const day = document.getElementById('id_day');
+        const period = document.getElementById('id_period');
+        const room = document.getElementById('id_room');
+        
+        // Agar sinf tanlanmagan bo'lsa (faqat sinf tanlash mavjud bo'lsa)
+        if (schoolClass && !schoolClass.value) {
+            e.preventDefault();
+            alert('Iltimos, sinfni tanlang!');
+            schoolClass.focus();
+            return false;
+        }
+        
+        if (!subject.value) {
+            e.preventDefault();
+            alert('Iltimos, fanni tanlang!');
+            subject.focus();
+            return false;
+        }
+        
+        if (!teacher.value) {
+            e.preventDefault();
+            alert("Iltimos, o'qituvchini tanlang!");
+            teacher.focus();
+            return false;
+        }
+        
+        if (!day.value) {
+            e.preventDefault();
+            alert('Iltimos, hafta kunini tanlang!');
+            day.focus();
+            return false;
+        }
+        
+        if (!period.value) {
+            e.preventDefault();
+            alert('Iltimos, dars raqamini tanlang!');
+            period.focus();
+            return false;
+        }
+        
+        if (!room.value.trim()) {
+            e.preventDefault();
+            alert('Iltimos, xona raqamini kiriting!');
+            room.focus();
+            return false;
+        }
+    });
+
+    // Ortga qaytish tugmasi
+    document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+        if (!confirm('O\'zgarishlarni saqlamasdan chiqasizmi?')) {
+            e.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchilar Boshqaruvi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            width: 95%;
+            max-width: 1400px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: #fff;
+            overflow: hidden;
+            min-height: 90vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: #1a237e;
+            color: #fff;
+            padding: 20px 0;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-menu li a:hover, .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 15px 20px;
+            width: 100%;
+            text-align: left;
+            font: inherit;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .logout-btn i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .dashboard-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .header-info {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .add-button {
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .add-button:hover {
+            background-color: #218838;
+        }
+        
+        .add-button i {
+            margin-right: 8px;
+        }
+        
+        /* Search and Filter Section */
+        .search-filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+        
+        .filter-select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+            min-width: 150px;
+        }
+        
+        /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .users-table th {
+            background-color: #1a237e;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .users-table th:hover {
+            background-color: #151a61;
+        }
+        
+        .users-table th i {
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .users-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .users-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .users-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        
+        .student-avatar {
+            background: #e8f5e9;
+            color: #28a745;
+        }
+        
+        .teacher-avatar {
+            background: #e3f2fd;
+            color: #007bff;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-name {
+            font-weight: 500;
+        }
+        
+        .user-username {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .role-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .role-student {
+            background: #e8f5e9;
+            color: #28a745;
+        }
+        
+        .role-teacher {
+            background: #e3f2fd;
+            color: #007bff;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #e8f5e9;
+            color: #28a745;
+        }
+        
+        .status-inactive {
+            background: #ffebee;
+            color: #dc3545;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-button {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button i {
+            margin-right: 4px;
+        }
+        
+        .view-button {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .view-button:hover {
+            background-color: #138496;
+        }
+        
+        .edit-button {
+            background-color: #ffc107;
+            color: #333;
+        }
+        
+        .edit-button:hover {
+            background-color: #e0a800;
+        }
+        
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+        
+        .toggle-button {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .toggle-button:hover {
+            background-color: #5a6268;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .page-button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .page-button.active {
+            background: #1a237e;
+            color: white;
+            border-color: #1a237e;
+        }
+        
+        .page-button:hover:not(.active) {
+            background: #f8f9fa;
+        }
+        
+        /* Modal Styles */
+        .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .modal-content {
+        background: white;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        position: relative;
+        /* margin-top ni olib tashladik */
+    }
+    
+    .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        position: relative; /* Yangi qo'shildi */
+    }
+    
+    .modal-header h2 {
+        margin: 0;
+        color: #333;
+        padding-right: 50px; /* Yopish tugmasi uchun joy */
+    }
+    
+    .close-button {
+        background: white;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #666;
+        position: absolute;
+        top: 15px; /* Modal header ichida */
+        right: 15px; /* Modal header ichida */
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1001; /* Boshqa elementlar ustida bo'lishi uchun */
+    }
+    
+    .close-button:hover {
+        color: #333;
+        background-color: #f8f9fa;
+        transform: scale(1.1);
+    }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .user-detail-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .user-detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .user-detail-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-right: 20px;
+            color: #1a237e;
+        }
+        
+        .user-detail-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+        
+        .user-detail-info p {
+            margin: 0;
+            color: #666;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .detail-item {
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        .subjects-list, .classes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .subject-tag, .class-tag {
+            background: #1a237e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 0;
+                border-radius: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .search-filter-section {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .users-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>HEMIS | Admin</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Shaxsiy kabinet</a></li>
+            <li class="active"><a href="{% url 'admin_users' %}"><i class="fas fa-users"></i> Foydalanuvchilar</a></li>
+            <li><a href="{% url 'admin_classes' %}"><i class="fas fa-chalkboard"></i> Sinflar va fanlar</a></li>
+            <li><a href="{% url 'admin_schedule' %}"><i class="fas fa-calendar-alt"></i> Dars jadvali</a></li>
+            <li><a href="{% url 'admin_reports' %}"><i class="fas fa-chart-bar"></i> Hisobotlar</a></li>
+            <li><a href="{% url 'admin_announcements' %}"><i class="fas fa-bullhorn"></i> E'lonlar</a></li>
+            <li><a href="{% url 'admin_activities' %}"><i class="fas fa-history"></i> Faoliyat tarixi</a></li>
+        </ul>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Chiqish
+            </button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <div class="dashboard-header">
+            <div>
+                <h1>Foydalanuvchilar Boshqaruvi</h1>
+                <p class="header-info">Barcha foydalanuvchilarni boshqarish</p>
+            </div>
+            <a href="{% url 'admin_add_user' %}" class="add-button">
+                <i class="fas fa-plus"></i> Yangi Foydalanuvchi
+            </a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Foydalanuvchi qidirish...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <select class="filter-select" id="roleFilter">
+                <option value="all">Barcha rollar</option>
+                <option value="student">O'quvchilar</option>
+                <option value="teacher">O'qituvchilar</option>
+            </select>
+            <select class="filter-select" id="statusFilter">
+                <option value="all">Barcha holatlar</option>
+                <option value="active">Faol</option>
+                <option value="inactive">Nofaol</option>
+            </select>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table-container">
+            <table class="users-table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th data-sort="name">Ism <i class="fas fa-sort"></i></th>
+                        <th data-sort="username">Foydalanuvchi nomi <i class="fas fa-sort"></i></th>
+                        <th data-sort="role">Rol <i class="fas fa-sort"></i></th>
+                        <th data-sort="details">Tafsilotlar <i class="fas fa-sort"></i></th>
+                        <th data-sort="status">Holat <i class="fas fa-sort"></i></th>
+                        <th>Harakatlar</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    {% for teacher in teachers %}
+                    <tr class="user-row" data-user-type="teacher" data-user-id="{{ teacher.user.id }}" data-user-active="{{ teacher.user.is_active|yesno:'true,false' }}">
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar teacher-avatar">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div>
+                                    <div class="user-name">{{ teacher.user.get_full_name|default:teacher.user.username }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-username">@{{ teacher.user.username }}</div>
+                        </td>
+                        <td>
+                            <span class="role-badge role-teacher">O'qituvchi</span>
+                        </td>
+                        <td>
+                            <div class="detail-value">
+                                {% for subject in teacher.subjects.all %}
+                                    <span class="subject-tag">{{ subject.name }}</span>
+                                {% empty %}
+                                    <span style="color: #999;">Fanlar kiritilmagan</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge {% if teacher.user.is_active %}status-active{% else %}status-inactive{% endif %}">
+                                {% if teacher.user.is_active %}Faol{% else %}Nofaol{% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button view-button" onclick="viewUser({{ teacher.user.id }}, 'teacher')">
+                                    <i class="fas fa-eye"></i> Ko'rish
+                                </button>
+                                <a href="{% url 'admin_edit_user' teacher.user.id %}" class="action-button edit-button">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'admin_toggle_active' teacher.user.id %}" class="action-button toggle-button">
+                                    {% if teacher.user.is_active %}
+                                        <i class="fas fa-ban"></i>
+                                    {% else %}
+                                        <i class="fas fa-check"></i>
+                                    {% endif %}
+                                </a>
+                                <a href="{% url 'admin_delete_user' teacher.user.id %}" class="action-button delete-button" onclick="return confirm('{{ teacher.user.get_full_name }} foydalanuvchisini oʻchirishni tasdiqlaysizmi?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    
+                    {% for student in students %}
+                    <tr class="user-row" data-user-type="student" data-user-id="{{ student.user.id }}" data-user-active="{{ student.user.is_active|yesno:'true,false' }}">
+                        <td>
+                            <div class="user-info">
+                                <div class="user-avatar student-avatar">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div>
+                                    <div class="user-name">{{ student.user.get_full_name|default:student.user.username }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-username">@{{ student.user.username }}</div>
+                        </td>
+                        <td>
+                            <span class="role-badge role-student">O'quvchi</span>
+                        </td>
+                        <td>
+                            <div class="detail-value">
+                                <span class="class-tag">{{ student.school_class.name }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge {% if student.user.is_active %}status-active{% else %}status-inactive{% endif %}">
+                                {% if student.user.is_active %}Faol{% else %}Nofaol{% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-button view-button" onclick="viewUser({{ student.user.id }}, 'student')">
+                                    <i class="fas fa-eye"></i> Ko'rish
+                                </button>
+                                <a href="{% url 'admin_edit_user' student.user.id %}" class="action-button edit-button">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'admin_toggle_active' student.user.id %}" class="action-button toggle-button">
+                                    {% if student.user.is_active %}
+                                        <i class="fas fa-ban"></i>
+                                    {% else %}
+                                        <i class="fas fa-check"></i>
+                                    {% endif %}
+                                </a>
+                                <a href="{% url 'admin_delete_user' student.user.id %}" class="action-button delete-button" onclick="return confirm('{{ student.user.get_full_name }} foydalanuvchisini oʻchirishni tasdiqlaysizmi?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% if not teachers and not students %}
+            <div class="empty-state">
+                <i class="fas fa-users"></i>
+                <h3>Foydalanuvchilar topilmadi</h3>
+                <p>Hozircha tizimda ro'yxatdan o'tgan foydalanuvchilar mavjud emas</p>
+                <a href="{% url 'admin_add_user' %}" class="add-button" style="margin-top: 15px;">
+                    <i class="fas fa-plus"></i> Foydalanuvchi Qo'shish
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be generated by JavaScript -->
+        </div>
+    </main>
+</div>
+
+<!-- User Detail Modal -->
+<div class="modal" id="userModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Foydalanuvchi Ma'lumotlari</h2>
+            <button class="close-button" onclick="closeModal()" title="Yopish">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- Modal content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Users data for filtering and searching
+    const allUsers = [
+        {% for teacher in teachers %}
+        {
+            id: {{ teacher.user.id }},
+            type: 'teacher',
+            name: '{{ teacher.user.get_full_name|default:teacher.user.username }}',
+            username: '{{ teacher.user.username }}',
+            email: '{{ teacher.user.email|default:"Kiritilmagan" }}',
+            phone: '{{ teacher.phone_number|default:"Kiritilmagan" }}',
+            details: '{{ teacher.subjects.all|join:", " }}',
+            status: '{{ teacher.user.is_active|yesno:"Faol,Nofaol" }}',
+            isActive: {{ teacher.user.is_active|yesno:"true,false" }},
+            class: '',
+            subjects: [
+                {% for subject in teacher.subjects.all %}
+                '{{ subject.name }}',
+                {% endfor %}
+            ]
+        },
+        {% endfor %}
+        {% for student in students %}
+        {
+            id: {{ student.user.id }},
+            type: 'student',
+            name: '{{ student.user.get_full_name|default:student.user.username }}',
+            username: '{{ student.user.username }}',
+            email: '{{ student.user.email|default:"Kiritilmagan" }}',
+            phone: '{{ student.phone_number|default:"Kiritilmagan" }}',
+            details: '{{ student.school_class.name }}',
+            status: '{{ student.user.is_active|yesno:"Faol,Nofaol" }}',
+            isActive: {{ student.user.is_active|yesno:"true,false" }},
+            class: '{{ student.school_class.name }}',
+            subjects: []
+        },
+        {% endfor %}
+    ];
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        filterUsers();
+    });
+
+    // Filter functionality
+    document.getElementById('roleFilter').addEventListener('change', filterUsers);
+    document.getElementById('statusFilter').addEventListener('change', filterUsers);
+
+    function filterUsers() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const roleFilter = document.getElementById('roleFilter').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+        
+        const rows = document.querySelectorAll('.user-row');
+        
+        rows.forEach(row => {
+            const name = row.querySelector('.user-name').textContent.toLowerCase();
+            const username = row.querySelector('.user-username').textContent.toLowerCase();
+            const role = row.getAttribute('data-user-type');
+            const isActive = row.getAttribute('data-user-active') === 'true';
+            
+            const matchesSearch = name.includes(searchTerm) || username.includes(searchTerm);
+            const matchesRole = roleFilter === 'all' || role === roleFilter;
+            const matchesStatus = statusFilter === 'all' || 
+                (statusFilter === 'active' && isActive) || 
+                (statusFilter === 'inactive' && !isActive);
+            
+            if (matchesSearch && matchesRole && matchesStatus) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Sort functionality
+    document.querySelectorAll('th[data-sort]').forEach(header => {
+        header.addEventListener('click', function() {
+            const sortBy = this.getAttribute('data-sort');
+            sortTable(sortBy);
+        });
+    });
+
+    function sortTable(sortBy) {
+        // This is a simplified sort implementation
+        // In a real application, you might want to sort the data on the server
+        alert(`Jadval ${sortBy} bo'yicha saralandi. To'liq amalga oshirish uchun server tomonida qo'shimcha kod kerak.`);
+    }
+
+    // View user details in modal
+    function viewUser(userId, userType) {
+        // In a real application, you would fetch user details from the server
+        // For now, we'll use the data we already have
+        const user = allUsers.find(u => u.id === userId && u.type === userType);
+        
+        if (user) {
+            let modalContent = `
+                <div class="user-detail-card">
+                    <div class="user-detail-header">
+                        <div class="user-detail-avatar">
+                            <i class="fas fa-${userType === 'teacher' ? 'user-tie' : 'user-graduate'}"></i>
+                        </div>
+                        <div class="user-detail-info">
+                            <h3>${user.name}</h3>
+                            <p>@${user.username}</p>
+                            <span class="role-badge ${userType === 'teacher' ? 'role-teacher' : 'role-student'}">
+                                ${userType === 'teacher' ? 'O\'qituvchi' : 'O\'quvchi'}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">Elektron pochta</div>
+                            <div class="detail-value">${user.email}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Telefon raqami</div>
+                            <div class="detail-value">${user.phone}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Holati</div>
+                            <div class="detail-value">
+                                <span class="status-badge ${user.isActive ? 'status-active' : 'status-inactive'}">
+                                    ${user.status}
+                                </span>
+                            </div>
+                        </div>
+            `;
+            
+            if (userType === 'teacher') {
+                modalContent += `
+                        <div class="detail-item">
+                            <div class="detail-label">O'qitadigan fanlar</div>
+                            <div class="detail-value">
+                                <div class="subjects-list">
+                                    ${user.subjects.map(subject => `<span class="subject-tag">${subject}</span>`).join('') || '<span style="color: #999;">Fanlar kiritilmagan</span>'}
+                                </div>
+                            </div>
+                        </div>
+                `;
+            } else {
+                modalContent += `
+                        <div class="detail-item">
+                            <div class="detail-label">Sinfi</div>
+                            <div class="detail-value">
+                                <span class="class-tag">${user.class}</span>
+                            </div>
+                        </div>
+                `;
+            }
+            
+            modalContent += `
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                    <a href="/admin/users/edit/${user.id}/" class="action-button edit-button">
+                        <i class="fas fa-edit"></i> Tahrirlash
+                    </a>
+                    <a href="/admin/users/toggle-active/${user.id}/" class="action-button toggle-button">
+                        ${user.isActive ? '<i class="fas fa-ban"></i> Bloklash' : '<i class="fas fa-check"></i> Faollashtirish'}
+                    </a>
+                </div>
+            `;
+            
+            document.getElementById('modalBody').innerHTML = modalContent;
+            document.getElementById('userModal').style.display = 'flex';
+        }
+    }
+
+    // Close modal
+    function closeModal() {
+        document.getElementById('userModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('userModal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Initialize pagination
+    function initPagination() {
+        // Simple pagination implementation
+        // In a real application, you would implement proper pagination
+        const rows = document.querySelectorAll('.user-row:not([style*="display: none"])');
+        if (rows.length > 10) {
+            // Show pagination if there are more than 10 visible rows
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = `
+                <button class="page-button active">1</button>
+                <button class="page-button">2</button>
+                <button class="page-button">3</button>
+                <span style="margin: 0 10px;">...</span>
+                <button class="page-button">10</button>
+            `;
+        }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        initPagination();
+    });
+</script>
+
+</body>
+</html>
