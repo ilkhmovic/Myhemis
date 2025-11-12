@@ -1,1 +1,1 @@
-web: cd hemis && gunicorn hemis.wsgi:application
+web: gunicorn hemis.hemis.wsgi:application
