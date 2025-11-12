@@ -6,8 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Xavfsizlik sozlamalari
 SECRET_KEY = 'sizning-maxfiy-kalitingiz'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 
 # Ilovalarni qo'shish
 INSTALLED_APPS = [
@@ -84,6 +84,7 @@ LOGIN_URL = 'login'  # Login sahifasi
 # CSRF sozlamalari
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
+CSRF_TRUSTED_ORIGINS = ['https://myhemis.onrender.com']
 
 #AUTH_USER_MODEL = 'main.User'
 
